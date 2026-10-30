@@ -11,8 +11,21 @@ android {
         applicationId = "com.hengping.standby"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "0.3.0"
+        versionCode = providers.gradleProperty("versionCode").orElse("4").get().toInt()
+        versionName = "0.3.1"
+    }
+
+    val releaseKeystore = System.getenv("ANDROID_KEYSTORE_PATH")
+    if (!releaseKeystore.isNullOrBlank()) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(releaseKeystore)
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = "hengping"
+                keyPassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            }
+        }
+        buildTypes.getByName("release").signingConfig = signingConfigs.getByName("release")
     }
 
     testOptions {

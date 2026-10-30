@@ -1,0 +1,86 @@
+name: Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+      - name: Test and lint
+        run: ./gradlew --no-daemon testDebugUnitTest lintDebug
+      - name: Build signed release APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/hengping-release.p12
+        run: |
+          test -n "$ANDROID_KEYSTORE_BASE64" && test -n "$ANDROID_KEYSTORE_PASSWORD"
+          umask 077
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$ANDROID_KEYSTORE_PATH"
+          ./gradlew --no-daemon assembleRelease -PversionCode="$((1000 + GITHUB_RUN_NUMBER))"
+      - name: Verify and prepare APK
+        id: apk
+        run: |
+          "$ANDROID_HOME/build-tools/34.0.0/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
+          version=$(python3 -c 'import json; print(json.load(open("app/build/outputs/apk/release/output-metadata.json"))["elements"][0]["versionName"])')
+          mkdir -p artifacts/ci
+          cp app/build/outputs/apk/release/app-release.apk "artifacts/ci/hengping-${version}-build-${GITHUB_RUN_NUMBER}.apk"
+          (cd artifacts/ci && sha256sum *.apk > SHA256SUMS)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: hengping-build-${{ github.run_number }}
+          path: artifacts/ci/*
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish public test release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APP_VERSION: ${{ steps.apk.outputs.version }}
+        run: |
+          tag="build-${GITHUB_RUN_NUMBER}"
+          cat > "$RUNNER_TEMP/release-notes.md" <<EOF
+          main 分支自动构建的公开测试版本，使用固定的 release 签名。
+
+          - 应用版本：${APP_VERSION}
+          - 构建编号：${GITHUB_RUN_NUMBER}
+          - 源码提交：${GITHUB_SHA}
+          - 构建记录：https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          下载 APK 直接安装。SHA256SUMS 提供文件校验值。
+          从 0.3.0 调试签名版本迁移时需先卸载旧版；此后自动构建持续使用同一签名并递增 versionCode。
+          EOF
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "Release $tag already exists; preserving its assets."
+          else
+            gh release create "$tag" artifacts/ci/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "横屏 ${APP_VERSION} · 测试构建 #${GITHUB_RUN_NUMBER}" \
+              --notes-file "$RUNNER_TEMP/release-notes.md" \
+              --prerelease
+          fi
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/hengping-release.p12"

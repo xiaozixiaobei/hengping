@@ -11,6 +11,9 @@ __pycache__/
 .env.*
 *.jks
 *.keystore
+*.p12
+*.pfx
+.signing/
 keystore.properties
 /window.xml
 /standby-ui.xml
