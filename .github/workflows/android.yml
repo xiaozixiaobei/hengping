@@ -45,7 +45,7 @@ jobs:
           "$ANDROID_HOME/build-tools/34.0.0/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
           version=$(python3 -c 'import json; print(json.load(open("app/build/outputs/apk/release/output-metadata.json"))["elements"][0]["versionName"])')
           mkdir -p artifacts/ci
-          cp app/build/outputs/apk/release/app-release.apk "artifacts/ci/shiyu-${version}-build-${GITHUB_RUN_NUMBER}.apk"
+          cp app/build/outputs/apk/release/app-release.apk artifacts/ci/shiyu-build.apk
           (cd artifacts/ci && sha256sum *.apk > SHA256SUMS)
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
