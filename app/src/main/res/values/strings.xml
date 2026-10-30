@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">横屏</string>
+    <string name="app_name">时屿</string>
     <string name="subtitle">时钟、月历与充电待机</string>
     <string name="open_standby">进入待机画面</string>
     <string name="display">显示</string>
@@ -24,7 +24,7 @@
     <string name="charging_display">充电与锁屏</string>
     <string name="auto_start">插电自动显示</string>
     <string name="auto_start_hint">开启后，插电或充电时锁屏将显示待机画面，拔电后退出。需要允许悬浮窗权限，并保留常驻通知中的关闭入口。</string>
-    <string name="overlay_permission_hint">请允许“横屏”显示在其他应用上层，以便从后台打开待机画面。</string>
+    <string name="overlay_permission_hint">请允许“时屿”显示在其他应用上层，以便从后台打开待机画面。</string>
     <string name="background_settings">后台与锁屏权限设置</string>
     <string name="background_permission_hint">如系统提供，请允许“锁屏显示”“后台弹出界面”和自启动，并将后台省电设为无限制。入口名称可能因系统版本不同。</string>
     <string name="monitor_title">充电自动显示已开启</string>
@@ -34,7 +34,7 @@
     <string name="dream_settings">打开屏幕保护设置</string>
     <string name="background_saved">背景照片已保存</string>
     <string name="dreams_unavailable">此设备不支持系统屏幕保护程序</string>
-    <string name="dream_name">横屏待机</string>
+    <string name="dream_name">时屿待机</string>
     <string name="action_seconds">秒</string>
     <string name="action_settings">设置</string>
     <string name="action_close">关闭</string>

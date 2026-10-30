@@ -6,7 +6,7 @@
 
 每次推送到 `main`，GitHub Actions 会自动运行单元测试与 lint，构建并验证 release 签名，然后把 APK 和 `SHA256SUMS` 发布到 [Releases](https://github.com/xiaozixiaobei/hengping/releases) 的公开测试版本。每个版本包含构建编号与源码提交；构建记录和 30 天内的附件也可在 [Actions](https://github.com/xiaozixiaobei/hengping/actions/workflows/android.yml) 查看。可通过 `Run workflow` 手动打包 `main`。
 
-自动构建的 `versionCode` 为 `1000 + github.run_number`，保持递增。更改应用版本时修改 `app/build.gradle.kts` 中的 `versionName`。本机默认 `versionCode` 为 4；如需覆盖已安装的云端版本，构建时通过 `-PversionCode=<更大的整数>` 指定。
+自动构建的 `versionCode` 为 `1000 + github.run_number`，保持递增。更改应用版本时修改 `app/build.gradle.kts` 中的 `versionName`。本机默认 `versionCode` 为 5；如需覆盖已安装的云端版本，构建时通过 `-PversionCode=<更大的整数>` 指定。
 
 仓库管理员需配置两个 Actions Secrets：
 

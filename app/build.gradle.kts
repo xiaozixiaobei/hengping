@@ -11,8 +11,8 @@ android {
         applicationId = "com.hengping.standby"
         minSdk = 26
         targetSdk = 34
-        versionCode = providers.gradleProperty("versionCode").orElse("4").get().toInt()
-        versionName = "0.3.1"
+        versionCode = providers.gradleProperty("versionCode").orElse("5").get().toInt()
+        versionName = "0.3.2"
     }
 
     val releaseKeystore = System.getenv("ANDROID_KEYSTORE_PATH")
