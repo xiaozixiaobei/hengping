@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/standby_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/standby_scrim" />
+
+    <com.hengping.standby.StandbyFaceView
+        android:id="@+id/standby_face"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="yes" />
+
+    <LinearLayout
+        android:id="@+id/controls"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/pill_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/toggle_seconds"
+            style="@style/StandbyAction"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:text="@string/action_seconds" />
+
+        <Button
+            android:id="@+id/edit_settings"
+            style="@style/StandbyAction"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:text="@string/action_settings" />
+
+        <Button
+            android:id="@+id/finish_preview"
+            style="@style/StandbyAction"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:text="@string/action_close" />
+    </LinearLayout>
+</FrameLayout>

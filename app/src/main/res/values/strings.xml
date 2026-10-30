@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">横屏</string>
+    <string name="subtitle">时钟、月历与充电待机</string>
+    <string name="open_standby">进入待机画面</string>
+    <string name="display">显示</string>
+    <string name="show_seconds">显示秒针</string>
+    <string name="dim_at_night">夜间降低亮度</string>
+    <string name="background">背景照片</string>
+    <string name="change_background">点击更换背景照片</string>
+    <string name="selected_background">已选背景照片缩略图</string>
+    <string name="black_background">纯黑背景</string>
+    <string name="photo_empty">未选择照片，当前使用纯黑背景</string>
+    <string name="photo_selected">已选照片 · 点击图片可更换</string>
+    <string name="photo_unavailable">照片无法读取，请重新选择</string>
+    <string name="calendar_hint">日历左右滑动切月，点击月份回到本月</string>
+    <string name="calendar_background">日历背景</string>
+    <string name="calendar_background_hint">浅色照片会自动使用深色日历文字</string>
+    <string name="calendar_background_none">关闭</string>
+    <string name="calendar_background_frosted">毛玻璃</string>
+    <string name="calendar_background_liquid">液态玻璃</string>
+    <string name="choose_background">选择照片</string>
+    <string name="reset_background">恢复默认</string>
+    <string name="charging_display">充电与锁屏</string>
+    <string name="auto_start">插电自动显示</string>
+    <string name="auto_start_hint">开启后，插电或充电时锁屏将显示待机画面，拔电后退出。需要允许悬浮窗权限，并保留常驻通知中的关闭入口。</string>
+    <string name="overlay_permission_hint">请允许“横屏”显示在其他应用上层，以便从后台打开待机画面。</string>
+    <string name="background_settings">后台与锁屏权限设置</string>
+    <string name="background_permission_hint">如系统提供，请允许“锁屏显示”“后台弹出界面”和自启动，并将后台省电设为无限制。入口名称可能因系统版本不同。</string>
+    <string name="monitor_title">充电自动显示已开启</string>
+    <string name="monitor_hint">插电或充电时锁屏自动显示。点此可手动进入。</string>
+    <string name="stop_auto_start">关闭自动显示</string>
+    <string name="charging_hint">系统屏保是另一种启动方式，通常在充电且设备空闲时显示。插电后立即显示请开启上面的开关。</string>
+    <string name="dream_settings">打开屏幕保护设置</string>
+    <string name="background_saved">背景照片已保存</string>
+    <string name="dreams_unavailable">此设备不支持系统屏幕保护程序</string>
+    <string name="dream_name">横屏待机</string>
+    <string name="action_seconds">秒</string>
+    <string name="action_settings">设置</string>
+    <string name="action_close">关闭</string>
+    <string name="touch_hint">轻触屏幕显示控制</string>
+</resources>
