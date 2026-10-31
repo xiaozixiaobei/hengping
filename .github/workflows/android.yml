@@ -27,6 +27,8 @@ jobs:
       - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
       - name: Install Android SDK
         run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+      - name: Validate release workflow
+        run: python3 scripts/test_release_workflow.py
       - name: Test and lint
         run: ./gradlew --no-daemon testDebugUnitTest lintDebug
       - name: Build signed release APK
@@ -59,7 +61,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           APP_VERSION: ${{ steps.apk.outputs.version }}
         run: |
-          tag="build-${GITHUB_RUN_NUMBER}"
+          tag="v${APP_VERSION}-build-${GITHUB_RUN_NUMBER}"
           cat > "$RUNNER_TEMP/release-notes.md" <<EOF
           main 分支自动构建的公开测试版本，使用固定的 release 签名。
 
@@ -71,6 +73,7 @@ jobs:
           下载 APK 直接安装。SHA256SUMS 提供文件校验值。
           从 0.3.0 调试签名版本迁移时需先卸载旧版；此后自动构建持续使用同一签名并递增 versionCode。
           EOF
+          RELEASE_NOTES="$(cat "$RUNNER_TEMP/release-notes.md")"
           if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
             echo "Release $tag already exists; preserving its assets."
           else
@@ -78,7 +81,8 @@ jobs:
               --repo "$GITHUB_REPOSITORY" \
               --target "$GITHUB_SHA" \
               --title "时屿 ${APP_VERSION} · 测试构建 #${GITHUB_RUN_NUMBER}" \
-              --notes-file "$RUNNER_TEMP/release-notes.md" \
+              --notes "$RELEASE_NOTES" \
+              --generate-notes \
               --prerelease
           fi
       - name: Remove temporary signing key
