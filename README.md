@@ -16,18 +16,6 @@
 
 一款简洁的 Android 横屏待机 App，把时间、月历和喜欢的照片放在一起。放在书桌或床头，抬眼就能看见。
 
-<p align="center">
-  <img src="artifacts/seeworld-shiyu-desktop.png" alt="时屿桌面端展示">
-  <br>
-  <sub>桌面端展示</sub>
-</p>
-
-<p align="center">
-  <img width="320" src="artifacts/seeworld-shiyu-mobile.png" alt="时屿手机端展示">
-  <br>
-  <sub>手机端展示</sub>
-</p>
-
 ## 功能
 
 - **一眼看清时间**：指针表盘搭配可选秒针，夜间可调暗亮度。
@@ -35,9 +23,17 @@
 - **放上喜欢的照片**：自定义背景，可搭配毛玻璃或液态玻璃日历。
 - **插电，进入待机**：开启自动显示后，插电显示、拔电退出。
 
-![时屿待机界面](artifacts/standby-analog-16x9.png)
+<p align="center">
+  <img src="artifacts/shiyu-wallpaper-standby.png" alt="时屿壁纸待机模式">
+</p>
 
-待机页采用黑底双栏布局：左侧白色指针表盘与橙色秒针，右侧中文月历与当天圆点。日历区域左右滑动切换月份，点击月份回到本月；时间随设备实时更新，滑动选择的月份不会被时钟刷新重置。
+<p align="center">
+  <img src="artifacts/shiyu-black-standby.png" alt="时屿纯黑待机模式">
+</p>
+
+壁纸待机会把照片铺满屏幕，日历可搭配毛玻璃或液态玻璃；纯黑待机只保留时间与月历，让桌面更安静。
+
+待机页采用双栏布局：左侧白色指针表盘与橙色秒针，右侧中文月历与当天圆点。日历区域左右滑动切换月份，点击月份回到本月；时间随设备实时更新，滑动选择的月份不会被时钟刷新重置。
 
 设置页采用深色界面，选择照片后会显示缩略图，可点击缩略图更换照片。照片背景铺满屏幕，时钟与日历单独避开刘海区域。
 
